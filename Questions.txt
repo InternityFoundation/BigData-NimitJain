@@ -1,0 +1,16 @@
+Perform these queries on googleplaystore dataset
+
+1) WAQ to find the difference between the total number of Category entries in the table and the Number of Distinct Category entries in the table.
+
+2) WAQ to get the App Column updated from January 2018 to August 2018.
+
+3) WAQ to get the App Column and their respective price. Condition->Remove the '$' Symbol from the output achieved.
+
+4) WAQ to find the Nth App from the google play store data.
+
+5) WAQ to find the Duplicate Rows in a table.
+
+6) WAQ to find the Second highest 'rating' from the table.
+
+7) WAQ to find the App list from the column whose last updated date is not mentioned in the last updated column.
+

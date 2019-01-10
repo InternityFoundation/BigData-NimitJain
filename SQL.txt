@@ -1,0 +1,47 @@
+CREATE TABLE googleplay(
+App VARCHAR(200),
+Category VARCHAR(100),
+Rating VARCHAR(10),
+Review VARCHAR(20),
+Size VARCHAR(100) ,
+Installs VARCHAR(100) ,
+Type VARCHAR(100) ,
+Price VARCHAR(10) ,
+Content_Rating VARCHAR(100) ,
+Genres Varchar(100) ,
+Last_Updated VARCHAR(100),
+Current_Ver VARCHAR(100),
+Android_Ver VARCHAR(100));
+
+load data infile  'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/googleplaystore.csv' into table googleplay
+fields terminated BY ','
+lines terminated BY '\n';
+
+/* WAQ to find the difference between the total number of Category entries in the table and the Number of Distinct Category entries in the table.*/
+
+SELECT COUNT(*)-COUNT(DISTINCT Category) FROM googlecsv;
+
+/* WAQ to get the App Column updated from January 2018 to August 2018.*/
+
+SELECT App FROM googlecsv WHERE SUBSTRING(Last_Updated, -4, 4)='2018' AND SUBSTRING(LAST_Updated,1,3) IN ('Jan',Feb',Mar','Apr','May','Jun','Jul','Aug');
+
+/* WAQ to get the App Column and their respective price. Condition->Remove the '$' Symbol from the output achieved.*/
+
+SELECT App,Price FROM googlecsv WHERE REPLACE(Price,'$','');
+
+/* WAQ to find the Nth App from the google play store data.*/
+
+SELECT * FROM googlecsv WHERE ROWNUM=N;
+
+/* WAQ to find the Duplicate Rows in a table.*/
+
+SELECT a.* FROM googlecsv a where ROWID!=(SELECT MAX(ROWID) FROM googlecsv b WHERE a.app=b.app);
+
+/* WAQ to find the Second highest 'rating' from the table.*/
+
+SELECT Rating FROM (SELECT DISTINCT Rating FROM googlecsv ORDER BY Rating DESC) Where ROWNUM=2;
+
+/* WAQ to find the App list from the column whose last updated date is not mentioned in the last updated column.*/
+
+SELECT App FROM googlecsv WHERE Last_Updated is NULL;
+

@@ -1,4 +1,4 @@
-CREATE TABLE googleplay(
+CREATE TABLE googlecsv(
 App VARCHAR(200),
 Category VARCHAR(100),
 Rating VARCHAR(10),
@@ -13,7 +13,7 @@ Last_Updated VARCHAR(100),
 Current_Ver VARCHAR(100),
 Android_Ver VARCHAR(100));
 
-load data infile  'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/googleplaystore.csv' into table googleplay
+load data infile  'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/googleplaystore.csv' into table googlecsv
 fields terminated BY ','
 lines terminated BY '\n';
 

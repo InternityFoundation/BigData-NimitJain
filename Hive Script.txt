@@ -1,0 +1,35 @@
+CREATE TABLE googleplay
+(
+App String,Category String,Rating Int,
+Reviews DECIMAL(3,1),Size String,Installs String,Type String,Price String,
+Content_Rating String,Genres String,Last_Updated String,
+Current_Ver String,Android_Ver String
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n';
+
+LOAD DATA INPATH '/googleplaystore.csv'
+INTO TABLE googleplay;
+
+--QUERY 1
+SELECT COUNT(*)-COUNT(DISTINCT Category) FROM googleplay;
+
+--QUERY 2
+
+
+--QUERY 3
+SELECT App,regexp_replace(Price,'$','') Price FROM googleplay;
+
+
+--QUERY 4
+SELECT * FROM (SELECT row_number() over (partition by 1) rn,g.* from googleplay g) q where q.rn = 2;
+
+--QUERY 5
+SELECT [every column], count(*) FROM ( SELECT [every column], * FROM table DISTRIBUTE BY [every column] HAVING count(*) > 1 ) t;
+
+--QUERY 6
+SELECT Rating FROM (SELECT row_number() over (partition by 1 order by Rating DESC) rn,Rating from (SELECT DISTINCT Rating FROM googleplay)) q Where q.rn = 2;
+
+--QUERY 7
+SELECT App FROM googleplay WHERE Last_Updated is NULL;

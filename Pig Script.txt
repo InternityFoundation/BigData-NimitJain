@@ -1,0 +1,15 @@
+googleplay= LOAD '/googleplaystore.csv' USING PigStorage(',') as (App:chararray,Category:chararray,Rating:float,
+Reviews:int,Size:chararray,Installs:chararray,Type:chararray,Price:chararray,
+Content_Rating:chararray,Genres:chararray,Last_Updated:chararray,
+Current_Ver:chararray,Android_Ver:chararray);
+
+grouped = GROUP googleplay all;
+total_count= foreach grouped generate COUNT(googleplay);
+categories = FOREACH googleplay GENERATE Category;
+uniq_cat = DISTINCT categories;
+grouped_cat = GROUP uniq_cat ALL;
+uniq_cat_count = FOREACH grouped_cat GENERATE COUNT(uniq_cat);
+Query1 = total_count - uniq_cat_count;
+
+null_values = FILTER googleplay by Last_Updated=='null';
+Query7 = FOREACH null_values GENERATE App;  
